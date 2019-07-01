@@ -1,0 +1,293 @@
+//Jeff Chastine
+#include <Windows.h>
+#include <GL\glew.h>
+#include <GL\freeglut.h>
+#include <iostream>
+
+using namespace std;
+
+void changeViewPort(int w, int h)
+{
+	glViewport(0, 0, w, h);
+}
+
+void render()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glutSwapBuffers();
+}
+
+
+
+int main(int argc, char* argv[]) {
+
+	// Initialize GLUT
+	glutInit(&argc, argv);
+	// Set up some memory buffers for our display
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	// Set the window size
+	glutInitWindowSize(800, 600);
+	// Create the window with the title "Hello,GL"
+	glutCreateWindow("Hello, GL");
+	// Bind the two functions (above) to respond when necessary
+	glutReshapeFunc(changeViewPort);
+	glutDisplayFunc(render);
+
+	// Very important!  This initializes the entry points in the OpenGL driver so we can 
+	// call all the functions in the API.
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		fprintf(stderr, "GLEW error");
+		return 1;
+	}
+
+
+	glutMainLoop();
+	return 0;
+}
+
+
+
+void main(int argc, char* argv[])
+
+{
+	
+	glutInit(&argc, argv);
+	// Inicjalizuje GLUT
+
+
+
+
+
+
+
+
+
+//Jeff Chastine
+#include <Windows.h>
+#include <GL\glew.h>
+#include <GL\freeglut.h>
+#include <iostream>
+
+using namespace std;
+typedef float point2[2];
+
+
+void DrawCarpet(float x, float y, float w)
+{
+	point2 a = { x, y };
+	float width = w;
+	int i = 0;
+
+	point2 b = { a[0] + width, a[1] };
+	point2 c = { a[0] + width, a[1]+width };
+	point2 d = { a[0], a[1]+width };
+
+	glBegin(GL_POLYGON);
+	glVertex2fv(a);
+	glVertex2fv(b);
+	glVertex2fv(c);
+	glVertex2fv(d);
+	glEnd();
+
+	if (i > 0)
+	{
+		width = width / 3;
+	}
+}
+
+int i = 3;
+void DrawAll(float x, float y, float width, int level)
+{  
+	if (level > 0)
+	{
+		width = width / 3;
+		glColor3f(0.0f, 0.0f, 1.0f);
+		DrawAll(x, y, width, level-1);			//1
+		glColor3f(0.0f, 1.0f, 0.0f);
+		DrawAll(x + width, y, width, level - 1); //2
+		glColor3f(0.0f, 0.0f, 1.0f);
+		DrawAll(x + width + width, y, width, level - 1); //3
+		glColor3f(0.0f, 1.0f, 0.0f);
+		DrawAll(x, y + width, width, level - 1);							//4
+		//glColor3f(0.5f, 0.5f, 0.5f);
+		//DrawAll(x + width, y + width, width, level - 1);								//5
+		glColor3f(0.0f, 1.0f, 0.0f);
+		DrawAll(x + width + width, y + width, width, level - 1);									//6
+		glColor3f(0.0f, 0.0f, 1.0f);
+		DrawAll(x, y + width + width, width, level - 1);										//7
+		glColor3f(0.0f, 1.0f, 0.0f);
+		DrawAll(x + width, y + width + width, width, level - 1);									//8
+		glColor3f(0.0f, 0.0f, 1.0f);
+		DrawAll(x + width + width, y + width + width, width, level - 1);									//9
+	}
+
+	else
+	{
+		point2 a = { x, y };
+		int i = 0;
+
+		point2 b = { a[0] + width, a[1] };
+		point2 c = { a[0] + width, a[1] + width };
+		point2 d = { a[0], a[1] + width };
+
+		glBegin(GL_POLYGON);
+		glVertex2fv(a);
+		glVertex2fv(b);
+		glVertex2fv(c);
+		glVertex2fv(d);
+		glEnd();
+	}
+	
+}
+
+void DrawWhole(float width, int level)
+{
+
+
+}
+
+void RenderScene(void)
+
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	// Czyszczenie okna aktualnym kolorem czyszcz¹cym
+	float width = 30;
+	int level = 2;
+
+	DrawAll(0,0, width, 5);
+	// Ustawienie aktualnego koloru rysowania na zielony
+
+
+	/*glVertex2fv(verts);
+	glVertex2fv(verts1);
+	glVertex2fv(verts2);
+	glVertex2fv(verts3);*/
+	// Narysowanie prostok¹ta
+		
+
+		//glRecti(-50, 0, 0, 50);
+
+	glFlush();
+	// Przekazanie poleceñ rysuj¹cych do wykonania
+
+}
+
+/*************************************************************************************/
+
+// Funkcja ustalaj¹ca stan renderowania
+
+
+
+void MyInit(void)
+
+{
+
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	// Kolor okna wnêtrza okna - ustawiono na szary
+
+}
+
+/*************************************************************************************/
+
+// Funkcja s³u¿¹ca do kontroli zachowania proporcji rysowanych obiektów
+// niezale¿nie od rozmiarów okna graficznego
+
+
+
+void ChangeSize(GLsizei horizontal, GLsizei vertical)
+
+// Parametry horizontal i vertical (szerokoœæ i wysokoœæ okna) s¹
+// przekazywane do funkcji za ka¿dym razem, gdy zmieni siê rozmiar okna
+
+{
+
+	GLfloat AspectRatio;
+
+	// Deklaracja zmiennej AspectRatio okreœlaj¹cej proporcjê wymiarów okna
+
+
+
+	if (vertical == 0)
+		// Zabezpieczenie pzred dzieleniem przez 0
+
+		vertical = 1;
+
+
+	glViewport(0, 0, horizontal, vertical);
+	// Ustawienie wielkoœciokna okna urz¹dzenia (Viewport)
+	// W tym przypadku od (0,0) do (horizontal, vertical)
+
+
+	glMatrixMode(GL_PROJECTION);
+	// Okreœlenie uk³adu wspó³rzêdnych obserwatora
+
+	glLoadIdentity();
+	// Okreœlenie przestrzeni ograniczaj¹cej
+
+	AspectRatio = (GLfloat)horizontal / (GLfloat)vertical;
+	// Wyznaczenie wspó³czynnika proporcji okna
+
+	// Gdy okno na ekranie nie jest kwadratem wymagane jest 
+	// okreœlenie okna obserwatora. 
+	// Pozwala to zachowaæ w³aœciwe proporcje rysowanego obiektu
+	// Do okreœlenia okna obserwatora s³u¿y funkcja glOrtho(...)
+
+
+
+	if (horizontal <= vertical)
+
+		glOrtho(-100.0, 100.0, -100.0 / AspectRatio, 100.0 / AspectRatio, 1.0, -1.0);
+
+	else
+
+		glOrtho(-100.0*AspectRatio, 100.0*AspectRatio, -100.0, 100.0, 1.0, -1.0);
+
+	glMatrixMode(GL_MODELVIEW);
+	// Okreœlenie uk³adu wspó³rzêdnych    
+
+	glLoadIdentity();
+
+}
+
+/*************************************************************************************/
+
+// G³ówny punkt wejœcia programu. Program dzia³a w trybie konsoli
+
+
+
+void main(int argc, char* argv[])
+
+{
+
+	glutInit(&argc, argv);
+	// Inicjalizuje GLUT
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA);
+	// Ustawienie trybu wyœwietlania
+	// GLUT_SINGLE - pojedynczy bufor wyœwietlania
+	// GLUT_RGBA - model kolorów RGB
+
+
+	glutCreateWindow("Drugi program w OpenGL");
+	// Utworzenie okna i okreœlenie treœci napisu w nag³ówku okna
+
+
+	glutDisplayFunc(RenderScene);
+	// Okreœlenie, ¿e funkcja RenderScene bêdzie funkcj¹ zwrotn¹ (callback)
+	// Biblioteka GLUT bêdzie wywo³ywa³a t¹ funkcjê za ka¿dym razem, gdy
+	// trzeba bêdzie przerysowaæ okno
+
+
+	glutReshapeFunc(ChangeSize);
+	// Dla aktualnego okna ustala funkcjê zwrotn¹ odpowiedzialn¹ za
+	// zmiany rozmiaru okna
+
+	MyInit();
+	// Funkcja MyInit (zdefiniowana powy¿ej) wykonuje wszelkie  
+	// inicjalizacje konieczneprzed przyst¹pieniem do renderowania
+
+
+	glutMainLoop();
+	// Funkcja uruchamia szkielet biblioteki GLUT
+
+}
