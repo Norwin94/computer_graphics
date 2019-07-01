@@ -13,5 +13,5 @@ Project -> Properties -> Linker -> General -> Additional Include Libraries -> Gl
 Project -> Properties -> Linker -> Input -> Additional Dependencies -> glew32.lib
 
 ### Having stdafx problems
-Project Properties -> C++ -> Precompiled Headers
+Project Properties -> C++ -> Precompiled Headers\n
 Set Precompiled Header to "Not Using Precompiled Header".
