@@ -8,4 +8,3 @@ co się dzieje w kodzie i na dowód zmodyfikowanie przykładu tak, aby uzyskać 
 Warianty na wyższe oceny zakładają rozbudowę kodu o algorytm generacji dywanu Sierpińskiego w 2D lub 3D (można też zastanowić się nad innym fraktalem, jeśli ktoś woli).
 Dodatkowym atutem jest wzbogacenie powstałego projektu o interfejs, który pozwoli wygodnie w oknie przeglądarki sterować ustawieniami generowanego fraktalu.
 
-https://curran.github.io/HTML5Examples/   - some very good projects with Canvas

@@ -15,3 +15,5 @@ Project -> Properties -> Linker -> Input -> Additional Dependencies -> glew32.li
 ### Having stdafx problems
 Project Properties -> C++ -> Precompiled Headers  
 Set Precompiled Header to "Not Using Precompiled Header"  
+
+https://curran.github.io/HTML5Examples/ - some very good projects with Canvas
